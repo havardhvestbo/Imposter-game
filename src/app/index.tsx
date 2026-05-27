@@ -237,7 +237,11 @@ export default function HomeScreen() {
                   <Pressable
                     accessibilityRole="button"
                     onPress={continueVoting}
-                    style={({ pressed }) => [styles.primaryButtonCompact, pressed && styles.pressed]}>
+                    style={({ pressed }) => [
+                      styles.primaryButtonCompact,
+                      styles.nextRoundButton,
+                      pressed && styles.pressed,
+                    ]}>
                     <Text style={styles.primaryButtonText}>Neste runde</Text>
                   </Pressable>
                 </View>
@@ -283,15 +287,19 @@ export default function HomeScreen() {
                 <View style={styles.buttonRow}>
                   <Pressable
                     accessibilityRole="button"
-                    onPress={replayWithSamePlayers}
+                    onPress={resetSetup}
                     style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}>
-                    <Text style={styles.secondaryButtonText}>Nytt spill</Text>
+                    <Text style={styles.secondaryButtonText}>Endre oppsett</Text>
                   </Pressable>
                   <Pressable
                     accessibilityRole="button"
-                    onPress={resetSetup}
-                    style={({ pressed }) => [styles.primaryButtonCompact, pressed && styles.pressed]}>
-                    <Text style={styles.primaryButtonText}>Endre oppsett</Text>
+                    onPress={replayWithSamePlayers}
+                    style={({ pressed }) => [
+                      styles.primaryButtonCompact,
+                      styles.newGameButton,
+                      pressed && styles.pressed,
+                    ]}>
+                    <Text style={styles.newGameButtonText}>Nytt spill</Text>
                   </Pressable>
                 </View>
               </View>

@@ -251,6 +251,12 @@ export const styles = StyleSheet.create({
   startButton: {
     backgroundColor: '#2F9E44',
   },
+  nextRoundButton: {
+    backgroundColor: '#2F9E44',
+  },
+  newGameButton: {
+    backgroundColor: '#F77F00',
+  },
   primaryButtonCompact: {
     minHeight: 58,
     flex: 1,
@@ -265,6 +271,11 @@ export const styles = StyleSheet.create({
   },
   primaryButtonText: {
     color: '#F8F0E3',
+    fontSize: 16,
+    fontWeight: '900',
+  },
+  newGameButtonText: {
+    color: '#172116',
     fontSize: 16,
     fontWeight: '900',
   },
