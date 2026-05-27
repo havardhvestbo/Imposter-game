@@ -1,180 +1,152 @@
-import { Image } from 'expo-image';
-import { SymbolView } from 'expo-symbols';
-import { Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ExternalLink } from '@/components/external-link';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Collapsible } from '@/components/ui/collapsible';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-import { useTheme } from '@/hooks/use-theme';
+const tips = [
+  'Gå rundt bordet og still ett spørsmål per tur.',
+  'Stem ut én mistenkelig spiller etter hver diskusjon.',
+  'Hvis imposteren blir stemt ut, vinner de sivile med én gang.',
+  'Hvis en sivil blir stemt ut, fortsetter resten å spille.',
+  'Imposteren vinner når bare én sivil er igjen.',
+];
 
-export default function TabTwoScreen() {
-  const safeAreaInsets = useSafeAreaInsets();
-  const insets = {
-    ...safeAreaInsets,
-    bottom: safeAreaInsets.bottom + BottomTabInset + Spacing.three,
-  };
-  const theme = useTheme();
+const prompts = [
+  'Hvor finner du det?',
+  'Er det stort eller lite?',
+  'Bruker du det hjemme?',
+  'Er det dyrt eller billig?',
+  'Passer det i hånden?',
+  'Er det vanlig ute?',
+];
 
-  const contentPlatformStyle = Platform.select({
-    android: {
-      paddingTop: insets.top,
-      paddingLeft: insets.left,
-      paddingRight: insets.right,
-      paddingBottom: insets.bottom,
-    },
-    web: {
-      paddingTop: Spacing.six,
-      paddingBottom: Spacing.four,
-    },
-  });
-
+export default function ExploreScreen() {
   return (
-    <ScrollView
-      style={[styles.scrollView, { backgroundColor: theme.background }]}
-      contentInset={insets}
-      contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
-      <ThemedView style={styles.container}>
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText type="subtitle">Explore</ThemedText>
-          <ThemedText style={styles.centerText} themeColor="textSecondary">
-            This starter app includes example{'\n'}code to help you get started.
-          </ThemedText>
+    <View style={styles.screen}>
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <Text style={styles.kicker}>Kort guide</Text>
+            <Text style={styles.title}>Spill smart. Hør normal ut.</Text>
+            <Text style={styles.subtitle}>
+              Bruk denne siden når gruppen trenger regler eller bedre spørsmål.
+            </Text>
+          </View>
 
-          <ExternalLink href="https://docs.expo.dev" asChild>
-            <Pressable style={({ pressed }) => pressed && styles.pressed}>
-              <ThemedView type="backgroundElement" style={styles.linkButton}>
-                <ThemedText type="link">Expo documentation</ThemedText>
-                <SymbolView
-                  tintColor={theme.text}
-                  name={{ ios: 'arrow.up.right.square', android: 'link', web: 'link' }}
-                  size={12}
-                />
-              </ThemedView>
-            </Pressable>
-          </ExternalLink>
-        </ThemedView>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Regler</Text>
+            {tips.map((tip, index) => (
+              <View key={tip} style={styles.row}>
+                <Text style={styles.number}>{index + 1}</Text>
+                <Text style={styles.rowText}>{tip}</Text>
+              </View>
+            ))}
+          </View>
 
-        <ThemedView style={styles.sectionsWrapper}>
-          <Collapsible title="File-based routing">
-            <ThemedText type="small">
-              This app has two screens: <ThemedText type="code">src/app/index.tsx</ThemedText> and{' '}
-              <ThemedText type="code">src/app/explore.tsx</ThemedText>
-            </ThemedText>
-            <ThemedText type="small">
-              The layout file in <ThemedText type="code">src/app/_layout.tsx</ThemedText> sets up
-              the tab navigator.
-            </ThemedText>
-            <ExternalLink href="https://docs.expo.dev/router/introduction">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
-
-          <Collapsible title="Android, iOS, and web support">
-            <ThemedView type="backgroundElement" style={styles.collapsibleContent}>
-              <ThemedText type="small">
-                You can open this project on Android, iOS, and the web. To open the web version,
-                press <ThemedText type="smallBold">w</ThemedText> in the terminal running this
-                project.
-              </ThemedText>
-              <Image
-                source={require('@/assets/images/tutorial-web.png')}
-                style={styles.imageTutorial}
-              />
-            </ThemedView>
-          </Collapsible>
-
-          <Collapsible title="Images">
-            <ThemedText type="small">
-              For static images, you can use the <ThemedText type="code">@2x</ThemedText> and{' '}
-              <ThemedText type="code">@3x</ThemedText> suffixes to provide files for different
-              screen densities.
-            </ThemedText>
-            <Image source={require('@/assets/images/react-logo.png')} style={styles.imageReact} />
-            <ExternalLink href="https://reactnative.dev/docs/images">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
-
-          <Collapsible title="Light and dark mode components">
-            <ThemedText type="small">
-              This template has light and dark mode support. The{' '}
-              <ThemedText type="code">useColorScheme()</ThemedText> hook lets you inspect what the
-              user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-            </ThemedText>
-            <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
-
-          <Collapsible title="Animations">
-            <ThemedText type="small">
-              This template includes an example of an animated component. The{' '}
-              <ThemedText type="code">src/components/ui/collapsible.tsx</ThemedText> component uses
-              the powerful <ThemedText type="code">react-native-reanimated</ThemedText> library to
-              animate opening this hint.
-            </ThemedText>
-          </Collapsible>
-        </ThemedView>
-        {Platform.OS === 'web' && <WebBadge />}
-      </ThemedView>
-    </ScrollView>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Spørsmål</Text>
+            <View style={styles.promptGrid}>
+              {prompts.map((prompt) => (
+                <View key={prompt} style={styles.promptPill}>
+                  <Text style={styles.promptText}>{prompt}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
+  screen: {
+    flex: 1,
+    backgroundColor: '#16211A',
+  },
+  safeArea: {
     flex: 1,
   },
-  contentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  container: {
-    maxWidth: MaxContentWidth,
+  content: {
     flexGrow: 1,
+    gap: 18,
+    padding: 20,
+    paddingBottom: 116,
   },
-  titleContainer: {
-    gap: Spacing.three,
+  header: {
+    gap: 10,
+    paddingTop: 14,
+  },
+  kicker: {
+    color: '#F8F0E3',
+    fontSize: 13,
+    fontWeight: '900',
+    textTransform: 'uppercase',
+  },
+  title: {
+    color: '#F8F0E3',
+    fontSize: 42,
+    fontWeight: '900',
+    lineHeight: 46,
+  },
+  subtitle: {
+    color: '#D7CBBB',
+    fontSize: 16,
+    fontWeight: '600',
+    lineHeight: 23,
+  },
+  card: {
+    borderRadius: 8,
+    backgroundColor: '#F8F0E3',
+    padding: 18,
+    gap: 14,
+    borderWidth: 2,
+    borderColor: '#172116',
+  },
+  cardTitle: {
+    color: '#172116',
+    fontSize: 22,
+    fontWeight: '900',
+  },
+  row: {
+    minHeight: 48,
+    flexDirection: 'row',
+    gap: 12,
     alignItems: 'center',
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.six,
   },
-  centerText: {
+  number: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    overflow: 'hidden',
+    backgroundColor: '#F25C54',
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '900',
+    lineHeight: 30,
     textAlign: 'center',
   },
-  pressed: {
-    opacity: 0.7,
+  rowText: {
+    flex: 1,
+    color: '#172116',
+    fontSize: 15,
+    fontWeight: '700',
+    lineHeight: 21,
   },
-  linkButton: {
+  promptGrid: {
     flexDirection: 'row',
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.two,
-    borderRadius: Spacing.five,
-    justifyContent: 'center',
-    gap: Spacing.one,
-    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 10,
   },
-  sectionsWrapper: {
-    gap: Spacing.five,
-    paddingHorizontal: Spacing.four,
-    paddingTop: Spacing.three,
+  promptPill: {
+    borderRadius: 999,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#E2D4C4',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
   },
-  collapsibleContent: {
-    alignItems: 'center',
-  },
-  imageTutorial: {
-    width: '100%',
-    aspectRatio: 296 / 171,
-    borderRadius: Spacing.three,
-    marginTop: Spacing.two,
-  },
-  imageReact: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
+  promptText: {
+    color: '#172116',
+    fontSize: 14,
+    fontWeight: '800',
   },
 });
