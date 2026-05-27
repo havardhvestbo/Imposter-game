@@ -2,20 +2,21 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const tips = [
-  'Gå rundt bordet og still ett spørsmål per tur.',
-  'Stem ut én mistenkelig spiller etter hver diskusjon.',
+  'Gå rundt bordet og si én ting som passer til ordet.',
+  'Imposteren må blende inn uten å vite ordet.',
+  'Stem ut én mistenkelig spiller når runden er ferdig.',
   'Hvis imposteren blir stemt ut, vinner de sivile med én gang.',
   'Hvis en sivil blir stemt ut, fortsetter resten å spille.',
   'Imposteren vinner når bare én sivil er igjen.',
 ];
 
-const prompts = [
-  'Hvor finner du det?',
-  'Er det stort eller lite?',
-  'Bruker du det hjemme?',
-  'Er det dyrt eller billig?',
-  'Passer det i hånden?',
-  'Er det vanlig ute?',
+const examples = [
+  'Hvor du finner det',
+  'Hvordan det føles',
+  'Når du bruker det',
+  'Hva det minner om',
+  'Om det er vanlig',
+  'Hvem som bruker det',
 ];
 
 export default function ExploreScreen() {
@@ -27,7 +28,7 @@ export default function ExploreScreen() {
             <Text style={styles.kicker}>Kort guide</Text>
             <Text style={styles.title}>Spill smart. Hør normal ut.</Text>
             <Text style={styles.subtitle}>
-              Bruk denne siden når gruppen trenger regler eller bedre spørsmål.
+              Bruk denne siden når gruppen trenger regler eller ideer til hva de kan si.
             </Text>
           </View>
 
@@ -42,11 +43,11 @@ export default function ExploreScreen() {
           </View>
 
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Spørsmål</Text>
+            <Text style={styles.cardTitle}>Si noe om</Text>
             <View style={styles.promptGrid}>
-              {prompts.map((prompt) => (
-                <View key={prompt} style={styles.promptPill}>
-                  <Text style={styles.promptText}>{prompt}</Text>
+              {examples.map((example) => (
+                <View key={example} style={styles.promptPill}>
+                  <Text style={styles.promptText}>{example}</Text>
                 </View>
               ))}
             </View>

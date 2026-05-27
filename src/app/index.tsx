@@ -255,8 +255,8 @@ export default function HomeScreen() {
                   </View>
                   <Text style={styles.title}>Imposter</Text>
                   <Text style={styles.subtitle}>
-                    Alle får samme ord bortsett fra én spiller. Still spørsmål, hold maska, og finn
-                    den falske.
+                    Alle får samme ord bortsett fra én spiller. Si noe som passer til ordet, hold
+                    maska, og finn den falske.
                   </Text>
                 </View>
 
@@ -394,7 +394,7 @@ export default function HomeScreen() {
                     pressed && cardVisible && styles.pressed,
                   ]}>
                   <Text style={styles.primaryButtonText}>
-                    {currentPlayerIndex === playerCount - 1 ? 'Start diskusjon' : 'Skjul og send'}
+                    {currentPlayerIndex === playerCount - 1 ? 'Start runde' : 'Skjul og send'}
                   </Text>
                 </Pressable>
               </View>
@@ -407,8 +407,8 @@ export default function HomeScreen() {
                 </View>
                 <Text style={styles.roundTitle}>Hvem virker mistenkelig?</Text>
                 <Text style={styles.subtitle}>
-                  Stem ut én spiller. Hvis det ikke er imposteren, går den sivile ut og neste runde
-                  starter.
+                  Alle sier én ting som passer til ordet. Imposteren må blende inn. Stem ut én
+                  spiller når runden er ferdig.
                 </Text>
 
                 <View style={styles.statusGrid}>
