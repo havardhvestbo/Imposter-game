@@ -1,14 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const tips = [
-  'Sivile får samme ord. Spioner får et lignende ord. Impostere får ikke ord.',
-  'Gå rundt bordet og si én ting som passer til ordet.',
-  'Følg den tilfeldige rekkefølgen på stemmesiden.',
-  'Stem ut én mistenkelig spiller når runden er ferdig.',
-  'Sivile vinner når alle skjulte roller er stemt ut.',
-  'Skjulte roller vinner når bare én sivil er igjen.',
-];
+import { GAME_RULES } from '@/features/imposter-game/rules';
 
 export default function ExploreScreen() {
   return (
@@ -25,10 +18,10 @@ export default function ExploreScreen() {
 
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Regler</Text>
-            {tips.map((tip, index) => (
-              <View key={tip} style={styles.row}>
+            {GAME_RULES.map((rule, index) => (
+              <View key={rule} style={styles.row}>
                 <Text style={styles.number}>{index + 1}</Text>
-                <Text style={styles.rowText}>{tip}</Text>
+                <Text style={styles.rowText}>{rule}</Text>
               </View>
             ))}
           </View>
