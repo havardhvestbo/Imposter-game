@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const MIN_PLAYERS = 3;
 const MAX_PLAYERS = 12;
+const MIN_IMPOSTERS = 1;
 
 const PLAYER_COLORS = [
   '#F25C54',
@@ -145,6 +146,7 @@ const categoryPacks = [
     words: [
       'Machu Picchu',
       'Eiffeltårnet',
+      'Big Ben',
       'Taj Mahal',
       'Colosseum',
       'Louvre',
@@ -248,6 +250,170 @@ const categoryPacks = [
   },
 ];
 
+const RELATED_WORDS: Record<string, string> = {
+  Panter: 'Jaguar',
+  Jaguar: 'Panter',
+  Flamingo: 'Pingvin',
+  Pingvin: 'Flamingo',
+  Krokodille: 'Python',
+  Python: 'Krokodille',
+  Gorilla: 'Panda',
+  Panda: 'Gorilla',
+  Delfin: 'Hval',
+  Hval: 'Delfin',
+  Ørn: 'Falk',
+  Falk: 'Ørn',
+  Kameleon: 'Skorpion',
+  Skorpion: 'Kameleon',
+  Koala: 'Alpakka',
+  Alpakka: 'Koala',
+  Hai: 'Gepard',
+  Gepard: 'Hai',
+  Reinsdyr: 'Lama',
+  Lama: 'Reinsdyr',
+  Sushi: 'Ramen',
+  Ramen: 'Sushi',
+  Tapas: 'Bruschetta',
+  Bruschetta: 'Tapas',
+  Espresso: 'Croissant',
+  Croissant: 'Espresso',
+  Trøffel: 'Kaviar',
+  Kaviar: 'Trøffel',
+  Wasabi: 'Kimchi',
+  Kimchi: 'Wasabi',
+  Paella: 'Curry',
+  Curry: 'Paella',
+  Falafel: 'Hummus',
+  Hummus: 'Falafel',
+  Safran: 'Parmesan',
+  Parmesan: 'Safran',
+  Mango: 'Gelato',
+  Gelato: 'Mango',
+  Taco: 'Mozzarella',
+  Mozzarella: 'Taco',
+  Kompass: 'Kart',
+  Kart: 'Kompass',
+  Kikkert: 'Teleskop',
+  Teleskop: 'Kikkert',
+  Drone: 'Kamera',
+  Kamera: 'Drone',
+  Mikrofon: 'Vinyl',
+  Vinyl: 'Mikrofon',
+  Pass: 'Koffert',
+  Koffert: 'Pass',
+  Parfyme: 'Maskerade',
+  Maskerade: 'Parfyme',
+  Skateboard: 'Lasso',
+  Lasso: 'Skateboard',
+  Sjakk: 'Poker',
+  Poker: 'Sjakk',
+  Krone: 'Rustning',
+  Rustning: 'Krone',
+  Kapsel: 'Lommelykt',
+  Lommelykt: 'Kapsel',
+  Paris: 'Roma',
+  Roma: 'Paris',
+  Tokyo: 'Dubai',
+  Dubai: 'Tokyo',
+  Monaco: 'Santorini',
+  Santorini: 'Monaco',
+  Venezia: 'Barcelona',
+  Barcelona: 'Venezia',
+  København: 'Reykjavík',
+  Reykjavík: 'København',
+  'New York': 'Rio',
+  Rio: 'New York',
+  Bali: 'Galápagos',
+  Galápagos: 'Bali',
+  Svalbard: 'Alaska',
+  Alaska: 'Svalbard',
+  Sahara: 'Amazonas',
+  Amazonas: 'Sahara',
+  Himalaya: 'Antarktis',
+  Antarktis: 'Himalaya',
+  'Machu Picchu': 'Petra',
+  Petra: 'Machu Picchu',
+  Eiffeltårnet: 'Big Ben',
+  'Big Ben': 'Eiffeltårnet',
+  'Taj Mahal': 'Versailles',
+  Versailles: 'Taj Mahal',
+  Colosseum: 'Akropolis',
+  Akropolis: 'Colosseum',
+  Louvre: 'Mona Lisa',
+  Stonehenge: 'Pompeii',
+  Pompeii: 'Stonehenge',
+  'Angkor Wat': 'Alhambra',
+  Alhambra: 'Angkor Wat',
+  Kreml: 'Notre-Dame',
+  'Notre-Dame': 'Kreml',
+  Sfinxen: 'Kilimanjaro',
+  Kilimanjaro: 'Sfinxen',
+  'Burj Khalifa': 'Frihetsgudinnen',
+  Frihetsgudinnen: 'Burj Khalifa',
+  Operahuset: 'Niagara',
+  Niagara: 'Operahuset',
+  Pluto: 'Neptun',
+  Neptun: 'Pluto',
+  Mars: 'Venus',
+  Venus: 'Mars',
+  Saturn: 'Jupiter',
+  Jupiter: 'Saturn',
+  Merkur: 'Solsystem',
+  Solsystem: 'Merkur',
+  Månen: 'Solen',
+  Solen: 'Månen',
+  Galakse: 'Melkeveien',
+  Melkeveien: 'Galakse',
+  Komet: 'Asteroide',
+  Asteroide: 'Komet',
+  Meteor: 'Supernova',
+  Supernova: 'Meteor',
+  Stjernetåke: 'Romstasjon',
+  Romstasjon: 'Stjernetåke',
+  Rakett: 'Astronaut',
+  Astronaut: 'Rakett',
+  Diamant: 'Rubin',
+  Rubin: 'Diamant',
+  Smaragd: 'Krystall',
+  Krystall: 'Smaragd',
+  Gull: 'Sølv',
+  Sølv: 'Gull',
+  Vulkan: 'Lava',
+  Lava: 'Vulkan',
+  Isfjell: 'Nordlys',
+  Nordlys: 'Isfjell',
+  Korallrev: 'Lagune',
+  Lagune: 'Korallrev',
+  Regnskog: 'Oase',
+  Oase: 'Regnskog',
+  Geysir: 'Fossil',
+  Fossil: 'Geysir',
+  Orkan: 'Tsunami',
+  Tsunami: 'Orkan',
+  Fjord: 'Grotte',
+  Grotte: 'Fjord',
+  'Mona Lisa': 'Picasso',
+  Picasso: 'Mona Lisa',
+  Viking: 'Samurai',
+  Samurai: 'Viking',
+  Jazz: 'Opera',
+  Opera: 'Jazz',
+  Ballett: 'Flamenco',
+  Flamenco: 'Ballett',
+  Graffiti: 'Banksy',
+  Banksy: 'Graffiti',
+  Festival: 'Karneval',
+  Karneval: 'Festival',
+  Shakespeare: 'Mozart',
+  Mozart: 'Shakespeare',
+  Bowie: 'Hollywood',
+  Hollywood: 'Bowie',
+  Broadway: 'Tango',
+  Tango: 'Broadway',
+  Manga: 'Mythologi',
+  Mythologi: 'Manga',
+};
+
 const allWords = Array.from(new Set(categoryPacks.flatMap((pack) => pack.words)));
 
 const wordPacks = [
@@ -261,11 +427,14 @@ const wordPacks = [
 ];
 
 type GamePhase = 'setup' | 'reveal' | 'vote' | 'voteResult' | 'gameOver';
-type Winner = 'civilians' | 'imposter';
+type PlayerRole = 'civilian' | 'imposter' | 'spy';
+type Winner = 'civilians' | 'hidden';
 
 type Round = {
   word: string;
-  imposterIndex: number;
+  spyWord: string;
+  imposterIndexes: number[];
+  spyIndexes: number[];
   packLabel: string;
   speakingPlayerIndexes: number[];
   activePlayerIndexes: number[];
@@ -281,6 +450,24 @@ function makeDefaultPlayers(count: number) {
 
 function pickRandom<T>(items: T[]) {
   return items[Math.floor(Math.random() * items.length)];
+}
+
+function getMaxHiddenRoleCount(playerCount: number) {
+  return Math.max(MIN_IMPOSTERS, Math.floor((playerCount - 1) / 2));
+}
+
+function getClampedRoleCounts(playerCount: number, imposterCount: number, spyCount: number) {
+  const maxHiddenRoleCount = getMaxHiddenRoleCount(playerCount);
+  const nextImposterCount = Math.min(
+    Math.max(MIN_IMPOSTERS, imposterCount),
+    maxHiddenRoleCount,
+  );
+  const nextSpyCount = Math.min(Math.max(0, spyCount), maxHiddenRoleCount - nextImposterCount);
+
+  return {
+    imposterCount: nextImposterCount,
+    spyCount: nextSpyCount,
+  };
 }
 
 function shuffleItems<T>(items: T[]) {
@@ -301,6 +488,47 @@ function getCleanPlayers(players: string[]) {
   return players.map((name, index) => name.trim() || `Spiller ${index + 1}`);
 }
 
+function getRelatedWord(word: string) {
+  const relatedWord = RELATED_WORDS[word];
+
+  if (relatedWord) {
+    return relatedWord;
+  }
+
+  const sourcePack = categoryPacks.find((pack) => pack.words.includes(word));
+  const alternatives = (sourcePack?.words ?? allWords).filter((alternative) => alternative !== word);
+
+  return alternatives.length > 0 ? pickRandom(alternatives) : word;
+}
+
+function getPlayerRole(round: Round, playerIndex: number): PlayerRole {
+  if (round.imposterIndexes.includes(playerIndex)) {
+    return 'imposter';
+  }
+
+  if (round.spyIndexes.includes(playerIndex)) {
+    return 'spy';
+  }
+
+  return 'civilian';
+}
+
+function isHiddenRole(round: Round, playerIndex: number) {
+  return getPlayerRole(round, playerIndex) !== 'civilian';
+}
+
+function getRoleLabel(role: PlayerRole) {
+  if (role === 'imposter') {
+    return 'Imposter';
+  }
+
+  if (role === 'spy') {
+    return 'Spion';
+  }
+
+  return 'Sivil';
+}
+
 function getPlayerColor(playerIndex: number) {
   return PLAYER_COLORS[playerIndex % PLAYER_COLORS.length];
 }
@@ -308,6 +536,8 @@ function getPlayerColor(playerIndex: number) {
 export default function HomeScreen() {
   const [playerCount, setPlayerCount] = useState(5);
   const [players, setPlayers] = useState(() => makeDefaultPlayers(5));
+  const [imposterCount, setImposterCount] = useState(1);
+  const [spyCount, setSpyCount] = useState(0);
   const [selectedPackId, setSelectedPackId] = useState(wordPacks[0].id);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const [phase, setPhase] = useState<GamePhase>('setup');
@@ -317,29 +547,53 @@ export default function HomeScreen() {
   const [selectedVoteIndex, setSelectedVoteIndex] = useState<number | null>(null);
 
   const selectedPack = wordPacks.find((pack) => pack.id === selectedPackId) ?? wordPacks[0];
+  const maxHiddenRoleCount = getMaxHiddenRoleCount(playerCount);
+  const maxImposterCount = Math.max(MIN_IMPOSTERS, maxHiddenRoleCount - spyCount);
+  const maxSpyCount = Math.max(0, maxHiddenRoleCount - imposterCount);
   const isUsingAllWords = selectedPackId === 'alt';
   const isCategoryChoiceActive = isCategoryMenuOpen || !isUsingAllWords;
   const cleanPlayers = getCleanPlayers(players);
   const currentPlayerIndex = currentRevealPosition;
   const currentPlayer = cleanPlayers[currentPlayerIndex];
-  const isCurrentPlayerImposter = round?.imposterIndex === currentPlayerIndex;
+  const currentPlayerRole = round ? getPlayerRole(round, currentPlayerIndex) : 'civilian';
   const activePlayerIndexes = round?.activePlayerIndexes ?? [];
   const speakingPlayerIndexes = round?.speakingPlayerIndexes ?? [];
-  const activeCivilianCount = activePlayerIndexes.filter(
-    (playerIndex) => playerIndex !== round?.imposterIndex,
-  ).length;
+  const activeHiddenRoleCount = round
+    ? activePlayerIndexes.filter((playerIndex) => isHiddenRole(round, playerIndex)).length
+    : 0;
+  const activeCivilianCount = round ? activePlayerIndexes.length - activeHiddenRoleCount : 0;
+  const activeHiddenPlayerNames = round
+    ? activePlayerIndexes
+        .filter((playerIndex) => isHiddenRole(round, playerIndex))
+        .map((playerIndex) => cleanPlayers[playerIndex])
+        .join(', ')
+    : '';
   const lastVotedIndex = round?.lastVotedIndex ?? null;
   const lastVotedPlayer = lastVotedIndex === null ? null : cleanPlayers[lastVotedIndex];
+  const lastVotedRole =
+    round && lastVotedIndex !== null ? getPlayerRole(round, lastVotedIndex) : null;
 
   function updatePlayerCount(nextCount: number) {
     const boundedCount = Math.min(MAX_PLAYERS, Math.max(MIN_PLAYERS, nextCount));
+    const nextRoleCounts = getClampedRoleCounts(boundedCount, imposterCount, spyCount);
+
     setPlayerCount(boundedCount);
+    setImposterCount(nextRoleCounts.imposterCount);
+    setSpyCount(nextRoleCounts.spyCount);
     setPlayers((currentPlayers) =>
       Array.from(
         { length: boundedCount },
         (_, index) => currentPlayers[index] ?? `Spiller ${index + 1}`,
       ),
     );
+  }
+
+  function updateImposterCount(nextCount: number) {
+    setImposterCount(Math.min(maxImposterCount, Math.max(MIN_IMPOSTERS, nextCount)));
+  }
+
+  function updateSpyCount(nextCount: number) {
+    setSpyCount(Math.min(maxSpyCount, Math.max(0, nextCount)));
   }
 
   function updatePlayerName(index: number, name: string) {
@@ -366,10 +620,14 @@ export default function HomeScreen() {
 
   function startRound() {
     const playerIndexes = Array.from({ length: playerCount }, (_, index) => index);
+    const rolePlayerIndexes = shuffleItems(playerIndexes);
+    const word = pickRandom(selectedPack.words);
 
     setRound({
-      word: pickRandom(selectedPack.words),
-      imposterIndex: Math.floor(Math.random() * playerCount),
+      word,
+      spyWord: getRelatedWord(word),
+      imposterIndexes: rolePlayerIndexes.slice(0, imposterCount),
+      spyIndexes: rolePlayerIndexes.slice(imposterCount, imposterCount + spyCount),
       packLabel: selectedPack.label,
       speakingPlayerIndexes: shuffleItems(playerIndexes),
       activePlayerIndexes: playerIndexes,
@@ -404,24 +662,18 @@ export default function HomeScreen() {
       return;
     }
 
-    if (selectedVoteIndex === round.imposterIndex) {
-      setRound({
-        ...round,
-        lastVotedIndex: selectedVoteIndex,
-        winner: 'civilians',
-      });
-      setSelectedVoteIndex(null);
-      setPhase('gameOver');
-      return;
-    }
-
     const nextActivePlayerIndexes = round.activePlayerIndexes.filter(
       (playerIndex) => playerIndex !== selectedVoteIndex,
     );
     const nextEliminatedPlayerIndexes = [...round.eliminatedPlayerIndexes, selectedVoteIndex];
     const nextCivilianCount = nextActivePlayerIndexes.filter(
-      (playerIndex) => playerIndex !== round.imposterIndex,
+      (playerIndex) => !isHiddenRole(round, playerIndex),
     ).length;
+    const nextHiddenRoleCount = nextActivePlayerIndexes.filter((playerIndex) =>
+      isHiddenRole(round, playerIndex),
+    ).length;
+    const winner =
+      nextHiddenRoleCount === 0 ? 'civilians' : nextCivilianCount <= 1 ? 'hidden' : null;
 
     setRound({
       ...round,
@@ -432,10 +684,10 @@ export default function HomeScreen() {
       eliminatedPlayerIndexes: nextEliminatedPlayerIndexes,
       voteNumber: round.voteNumber + 1,
       lastVotedIndex: selectedVoteIndex,
-      winner: nextCivilianCount <= 1 ? 'imposter' : null,
+      winner,
     });
     setSelectedVoteIndex(null);
-    setPhase(nextCivilianCount <= 1 ? 'gameOver' : 'voteResult');
+    setPhase(winner ? 'gameOver' : 'voteResult');
   }
 
   function continueVoting() {
@@ -465,12 +717,12 @@ export default function HomeScreen() {
               <View style={styles.panel}>
                 <View style={styles.header}>
                   <View style={styles.badge}>
-                    <Text style={styles.badgeText}>Én hemmelig rolle</Text>
+                    <Text style={styles.badgeText}>Skjulte roller</Text>
                   </View>
                   <Text style={styles.title}>Imposter</Text>
                   <Text style={styles.subtitle}>
-                    Alle får samme ord bortsett fra én spiller. Si noe som passer til ordet, hold
-                    maska, og finn den falske.
+                    Sivile får samme ord. Spioner får et lignende ord. Impostere får ikke ord.
+                    Hold maska, og finn de skjulte rollene.
                   </Text>
                 </View>
 
@@ -503,6 +755,79 @@ export default function HomeScreen() {
                       <Text style={styles.iconButtonText}>+</Text>
                     </Pressable>
                   </View>
+                </View>
+
+                <View style={styles.section}>
+                  <Text style={styles.sectionLabel}>Roller</Text>
+                  <View style={styles.roleGrid}>
+                    <View style={styles.roleCard}>
+                      <View style={styles.roleCopy}>
+                        <Text style={styles.roleName}>Impostere</Text>
+                        <Text style={styles.roleDescription}>Får ikke ord</Text>
+                      </View>
+                      <View style={styles.roleStepper}>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Fjern imposter"
+                          onPress={() => updateImposterCount(imposterCount - 1)}
+                          style={({ pressed }) => [
+                            styles.roleButton,
+                            imposterCount === MIN_IMPOSTERS && styles.disabledButton,
+                            pressed && imposterCount > MIN_IMPOSTERS && styles.pressed,
+                          ]}>
+                          <Text style={styles.roleButtonText}>-</Text>
+                        </Pressable>
+                        <Text style={styles.roleCount}>{imposterCount}</Text>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Legg til imposter"
+                          onPress={() => updateImposterCount(imposterCount + 1)}
+                          style={({ pressed }) => [
+                            styles.roleButton,
+                            imposterCount === maxImposterCount && styles.disabledButton,
+                            pressed && imposterCount < maxImposterCount && styles.pressed,
+                          ]}>
+                          <Text style={styles.roleButtonText}>+</Text>
+                        </Pressable>
+                      </View>
+                    </View>
+
+                    <View style={styles.roleCard}>
+                      <View style={styles.roleCopy}>
+                        <Text style={styles.roleName}>Spioner</Text>
+                        <Text style={styles.roleDescription}>Får et lignende ord</Text>
+                      </View>
+                      <View style={styles.roleStepper}>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Fjern spion"
+                          onPress={() => updateSpyCount(spyCount - 1)}
+                          style={({ pressed }) => [
+                            styles.roleButton,
+                            spyCount === 0 && styles.disabledButton,
+                            pressed && spyCount > 0 && styles.pressed,
+                          ]}>
+                          <Text style={styles.roleButtonText}>-</Text>
+                        </Pressable>
+                        <Text style={styles.roleCount}>{spyCount}</Text>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Legg til spion"
+                          onPress={() => updateSpyCount(spyCount + 1)}
+                          style={({ pressed }) => [
+                            styles.roleButton,
+                            spyCount === maxSpyCount && styles.disabledButton,
+                            pressed && spyCount < maxSpyCount && styles.pressed,
+                          ]}>
+                          <Text style={styles.roleButtonText}>+</Text>
+                        </Pressable>
+                      </View>
+                    </View>
+                  </View>
+                  <Text style={styles.helperText}>
+                    Du kan ha maks {maxHiddenRoleCount} skjulte roller med {playerCount} spillere.
+                    Sivile må alltid være i flertall.
+                  </Text>
                 </View>
 
                 <View style={styles.section}>
@@ -609,28 +934,38 @@ export default function HomeScreen() {
                   style={({ pressed }) => [
                     styles.secretCard,
                     cardVisible &&
-                      (isCurrentPlayerImposter ? styles.secretCardImposter : styles.secretCardCivilian),
+                      (currentPlayerRole === 'imposter'
+                        ? styles.secretCardImposter
+                        : currentPlayerRole === 'spy'
+                          ? styles.secretCardSpy
+                          : styles.secretCardCivilian),
                     pressed && styles.pressed,
                   ]}>
                   <Text style={styles.secretCardEyebrow}>
                     {cardVisible
-                      ? isCurrentPlayerImposter
+                      ? currentPlayerRole === 'imposter'
                         ? 'Din rolle'
-                        : 'Ditt ord'
+                        : currentPlayerRole === 'spy'
+                          ? 'Spionord'
+                          : 'Ditt ord'
                       : 'Trykk for å vise'}
                   </Text>
                   <Text style={styles.secretCardText}>
                     {cardVisible
-                      ? isCurrentPlayerImposter
+                      ? currentPlayerRole === 'imposter'
                         ? 'Imposter'
-                        : round.word
+                        : currentPlayerRole === 'spy'
+                          ? round.spyWord
+                          : round.word
                       : 'Skjult'}
                   </Text>
                   <Text style={styles.secretCardHint}>
                     {cardVisible
-                      ? isCurrentPlayerImposter
-                        ? 'Lat som du vet ordet.'
-                        : 'Husk ordet, og skjul skjermen.'
+                      ? currentPlayerRole === 'imposter'
+                        ? 'Du får ikke ord. Lat som du vet det.'
+                        : currentPlayerRole === 'spy'
+                          ? 'Du er spion. Ordet ditt ligner på de siviles.'
+                          : 'Husk ordet, og skjul skjermen.'
                       : 'Bare denne spilleren skal se.'}
                   </Text>
                 </Pressable>
@@ -668,8 +1003,8 @@ export default function HomeScreen() {
                     <Text style={styles.statusLabel}>Sivile igjen</Text>
                   </View>
                   <View style={styles.statusBox}>
-                    <Text style={styles.statusValue}>{round.eliminatedPlayerIndexes.length}</Text>
-                    <Text style={styles.statusLabel}>Stemt ut</Text>
+                    <Text style={styles.statusValue}>{activeHiddenRoleCount}</Text>
+                    <Text style={styles.statusLabel}>Skjulte igjen</Text>
                   </View>
                 </View>
 
@@ -718,23 +1053,31 @@ export default function HomeScreen() {
 
             {phase === 'voteResult' && round && lastVotedPlayer && (
               <View style={styles.panel}>
-                <View style={[styles.resultCard, styles.safeResultCard]}>
-                  <Text style={styles.overline}>Feil stemme</Text>
+                <View
+                  style={[
+                    styles.resultCard,
+                    lastVotedRole === 'civilian' ? styles.dangerResultCard : styles.safeResultCard,
+                  ]}>
+                  <Text style={styles.overline}>
+                    {lastVotedRole === 'civilian' ? 'Feil stemme' : 'Riktig stemme'}
+                  </Text>
                   <Text style={styles.resultName}>{lastVotedPlayer}</Text>
                   <Text style={styles.resultWord}>
-                    var sivil. {activeCivilianCount} sivile igjen.
+                    {lastVotedRole === 'civilian'
+                      ? `var sivil. ${activeCivilianCount} sivile igjen.`
+                      : `var ${getRoleLabel(lastVotedRole ?? 'civilian').toLowerCase()}. ${activeHiddenRoleCount} skjulte igjen.`}
                   </Text>
                 </View>
 
                 <View style={styles.playerList}>
-                  {round.activePlayerIndexes.map((playerIndex) => (
+                  {speakingPlayerIndexes.map((playerIndex, orderIndex) => (
                     <View key={playerIndex} style={styles.playerPill}>
                       <Text
                         style={[
                           styles.playerNumber,
                           { backgroundColor: getPlayerColor(playerIndex) },
                         ]}>
-                        {playerIndex + 1}
+                        {orderIndex + 1}
                       </Text>
                       <Text style={styles.playerName}>{cleanPlayers[playerIndex]}</Text>
                     </View>
@@ -763,30 +1106,34 @@ export default function HomeScreen() {
                 <View
                   style={[
                     styles.resultCard,
-                    round.winner === 'imposter' ? styles.dangerResultCard : styles.safeResultCard,
+                    round.winner === 'hidden' ? styles.dangerResultCard : styles.safeResultCard,
                   ]}>
                   <Text style={styles.overline}>
-                    {round.winner === 'imposter' ? 'Imposter vinner' : 'Sivile vinner'}
+                    {round.winner === 'hidden' ? 'Skjulte roller vinner' : 'Sivile vinner'}
                   </Text>
                   <Text style={styles.resultName}>
-                    {round.winner === 'imposter'
-                      ? cleanPlayers[round.imposterIndex]
-                      : `${cleanPlayers[round.imposterIndex]} ble tatt`}
+                    {round.winner === 'hidden'
+                      ? activeHiddenPlayerNames || 'De skjulte'
+                      : 'Alle skjulte roller ble tatt'}
                   </Text>
                   <Text style={styles.resultWord}>
-                    Ord: {round.word} | Gruppe: {round.packLabel}
+                    Ord: {round.word}
+                    {round.spyIndexes.length > 0 ? ` | Spionord: ${round.spyWord}` : ''} | Gruppe:{' '}
+                    {round.packLabel}
                   </Text>
                 </View>
 
-                {round.winner === 'imposter' && (
+                {round.winner === 'hidden' && (
                   <Text style={styles.subtitle}>
-                    Bare én sivil er igjen, så imposteren overlevde.
+                    Bare én sivil er igjen, så de skjulte rollene overlevde.
                   </Text>
                 )}
 
                 {round.winner === 'civilians' && lastVotedPlayer && (
                   <Text style={styles.subtitle}>
-                    {lastVotedPlayer} ble stemt ut som imposter i runde {round.voteNumber}.
+                    {lastVotedPlayer} ble stemt ut som{' '}
+                    {getRoleLabel(lastVotedRole ?? 'civilian').toLowerCase()} i runde{' '}
+                    {round.voteNumber}.
                   </Text>
                 )}
 
@@ -927,6 +1274,67 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: '900',
     lineHeight: 28,
+  },
+  roleGrid: {
+    gap: 10,
+  },
+  roleCard: {
+    minHeight: 72,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#E2D4C4',
+    padding: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  roleCopy: {
+    flex: 1,
+    gap: 3,
+  },
+  roleName: {
+    color: '#172116',
+    fontSize: 16,
+    fontWeight: '900',
+  },
+  roleDescription: {
+    color: '#62584C',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  roleStepper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  roleButton: {
+    width: 34,
+    height: 34,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#172116',
+  },
+  roleButtonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: '900',
+    lineHeight: 22,
+  },
+  roleCount: {
+    minWidth: 24,
+    color: '#172116',
+    fontSize: 20,
+    fontWeight: '900',
+    textAlign: 'center',
+  },
+  helperText: {
+    color: '#62584C',
+    fontSize: 13,
+    fontWeight: '700',
+    lineHeight: 18,
   },
   nameGrid: {
     gap: 10,
@@ -1071,6 +1479,9 @@ const styles = StyleSheet.create({
   },
   secretCardImposter: {
     backgroundColor: '#F25C54',
+  },
+  secretCardSpy: {
+    backgroundColor: '#F4A261',
   },
   secretCardEyebrow: {
     color: '#FFFFFF',
