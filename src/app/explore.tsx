@@ -10,15 +10,6 @@ const tips = [
   'Imposteren vinner når bare én sivil er igjen.',
 ];
 
-const examples = [
-  'Hvor du finner det',
-  'Hvordan det føles',
-  'Når du bruker det',
-  'Hva det minner om',
-  'Om det er vanlig',
-  'Hvem som bruker det',
-];
-
 export default function ExploreScreen() {
   return (
     <View style={styles.screen}>
@@ -28,7 +19,7 @@ export default function ExploreScreen() {
             <Text style={styles.kicker}>Kort guide</Text>
             <Text style={styles.title}>Spill smart. Hør normal ut.</Text>
             <Text style={styles.subtitle}>
-              Bruk denne siden når gruppen trenger regler eller ideer til hva de kan si.
+              Bruk denne siden når gruppen trenger en rask forklaring av spillet.
             </Text>
           </View>
 
@@ -40,17 +31,6 @@ export default function ExploreScreen() {
                 <Text style={styles.rowText}>{tip}</Text>
               </View>
             ))}
-          </View>
-
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Si noe om</Text>
-            <View style={styles.promptGrid}>
-              {examples.map((example) => (
-                <View key={example} style={styles.promptPill}>
-                  <Text style={styles.promptText}>{example}</Text>
-                </View>
-              ))}
-            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -131,23 +111,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     lineHeight: 21,
-  },
-  promptGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-  },
-  promptPill: {
-    borderRadius: 999,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    borderColor: '#E2D4C4',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-  },
-  promptText: {
-    color: '#172116',
-    fontSize: 14,
-    fontWeight: '800',
   },
 });

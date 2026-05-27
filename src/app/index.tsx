@@ -14,80 +14,250 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const MIN_PLAYERS = 3;
 const MAX_PLAYERS = 12;
 
-const wordPacks = [
-  {
-    id: 'alt',
-    label: 'Alt',
-    color: '#172116',
-    words: [
-      'Hund',
-      'Katt',
-      'Fisk',
-      'Fugl',
-      'Hest',
-      'Ku',
-      'Sau',
-      'Gris',
-      'Brød',
-      'Ost',
-      'Melk',
-      'Egg',
-      'Eple',
-      'Pære',
-      'Ris',
-      'Suppe',
-      'Stol',
-      'Bord',
-      'Lampe',
-      'Sko',
-      'Bok',
-      'Nøkkel',
-      'Kopp',
-      'Telefon',
-      'Bil',
-      'Buss',
-      'Tog',
-      'Sykkel',
-      'Båt',
-      'Fly',
-      'Hus',
-      'Skole',
-      'Butikk',
-      'Park',
-      'Strand',
-      'Fjell',
-      'Sol',
-      'Regn',
-      'Snø',
-      'Vind',
-      'Klokke',
-      'Seng',
-      'Dør',
-      'Vindu',
-      'Veske',
-      'Lue',
-      'Jakke',
-      'Ball',
-    ],
-  },
+const PLAYER_COLORS = [
+  '#F25C54',
+  '#2D9CDB',
+  '#7CB342',
+  '#F4A261',
+  '#6C63FF',
+  '#00897B',
+  '#D1495B',
+  '#E9C46A',
+  '#9B5DE5',
+  '#00A896',
+  '#F77F00',
+  '#577590',
+];
+
+const categoryPacks = [
   {
     id: 'dyr',
     label: 'Dyr',
     color: '#F25C54',
-    words: ['Hund', 'Katt', 'Fisk', 'Fugl', 'Hest', 'Ku', 'Sau', 'Gris'],
+    words: [
+      'Panter',
+      'Jaguar',
+      'Flamingo',
+      'Krokodille',
+      'Gorilla',
+      'Delfin',
+      'Ørn',
+      'Falk',
+      'Pingvin',
+      'Kameleon',
+      'Skorpion',
+      'Python',
+      'Panda',
+      'Koala',
+      'Hval',
+      'Hai',
+      'Reinsdyr',
+      'Lama',
+      'Alpakka',
+      'Gepard',
+    ],
   },
   {
     id: 'mat',
     label: 'Mat',
     color: '#2D9CDB',
-    words: ['Brød', 'Ost', 'Melk', 'Egg', 'Eple', 'Pære', 'Ris', 'Suppe'],
+    words: [
+      'Sushi',
+      'Tapas',
+      'Espresso',
+      'Croissant',
+      'Trøffel',
+      'Kaviar',
+      'Wasabi',
+      'Kimchi',
+      'Paella',
+      'Falafel',
+      'Safran',
+      'Mango',
+      'Parmesan',
+      'Gelato',
+      'Taco',
+      'Curry',
+      'Ramen',
+      'Hummus',
+      'Bruschetta',
+      'Mozzarella',
+    ],
   },
   {
     id: 'ting',
     label: 'Ting',
     color: '#7CB342',
-    words: ['Stol', 'Bord', 'Lampe', 'Sko', 'Bok', 'Nøkkel', 'Kopp', 'Telefon'],
+    words: [
+      'Kompass',
+      'Kikkert',
+      'Drone',
+      'Mikrofon',
+      'Kamera',
+      'Pass',
+      'Kart',
+      'Vinyl',
+      'Parfyme',
+      'Skateboard',
+      'Sjakk',
+      'Poker',
+      'Maskerade',
+      'Krone',
+      'Kapsel',
+      'Lommelykt',
+      'Koffert',
+      'Lasso',
+      'Rustning',
+      'Teleskop',
+    ],
   },
+  {
+    id: 'steder',
+    label: 'Steder',
+    color: '#F4A261',
+    words: [
+      'Paris',
+      'Roma',
+      'Tokyo',
+      'Dubai',
+      'Monaco',
+      'Venezia',
+      'Barcelona',
+      'København',
+      'Reykjavík',
+      'New York',
+      'Rio',
+      'Bali',
+      'Svalbard',
+      'Sahara',
+      'Amazonas',
+      'Alaska',
+      'Himalaya',
+      'Antarktis',
+      'Galápagos',
+      'Santorini',
+    ],
+  },
+  {
+    id: 'landemerker',
+    label: 'Landemerker',
+    color: '#6C63FF',
+    words: [
+      'Machu Picchu',
+      'Eiffeltårnet',
+      'Taj Mahal',
+      'Colosseum',
+      'Louvre',
+      'Akropolis',
+      'Stonehenge',
+      'Pompeii',
+      'Angkor Wat',
+      'Petra',
+      'Versailles',
+      'Kreml',
+      'Sfinxen',
+      'Burj Khalifa',
+      'Frihetsgudinnen',
+      'Operahuset',
+      'Notre-Dame',
+      'Alhambra',
+      'Kilimanjaro',
+      'Niagara',
+    ],
+  },
+  {
+    id: 'rommet',
+    label: 'Rommet',
+    color: '#00897B',
+    words: [
+      'Pluto',
+      'Mars',
+      'Venus',
+      'Saturn',
+      'Jupiter',
+      'Merkur',
+      'Neptun',
+      'Månen',
+      'Solen',
+      'Galakse',
+      'Komet',
+      'Asteroide',
+      'Meteor',
+      'Supernova',
+      'Stjernetåke',
+      'Romstasjon',
+      'Rakett',
+      'Astronaut',
+      'Melkeveien',
+      'Solsystem',
+    ],
+  },
+  {
+    id: 'natur',
+    label: 'Natur',
+    color: '#D1495B',
+    words: [
+      'Diamant',
+      'Rubin',
+      'Smaragd',
+      'Gull',
+      'Sølv',
+      'Krystall',
+      'Vulkan',
+      'Lava',
+      'Isfjell',
+      'Nordlys',
+      'Korallrev',
+      'Regnskog',
+      'Geysir',
+      'Fossil',
+      'Orkan',
+      'Tsunami',
+      'Fjord',
+      'Grotte',
+      'Lagune',
+      'Oase',
+    ],
+  },
+  {
+    id: 'kultur',
+    label: 'Kultur',
+    color: '#9B5DE5',
+    words: [
+      'Mona Lisa',
+      'Viking',
+      'Samurai',
+      'Jazz',
+      'Opera',
+      'Ballett',
+      'Graffiti',
+      'Festival',
+      'Karneval',
+      'Shakespeare',
+      'Picasso',
+      'Bowie',
+      'Banksy',
+      'Mozart',
+      'Hollywood',
+      'Broadway',
+      'Manga',
+      'Flamenco',
+      'Mythologi',
+      'Tango',
+    ],
+  },
+];
+
+const allWords = Array.from(new Set(categoryPacks.flatMap((pack) => pack.words)));
+
+const wordPacks = [
+  {
+    id: 'alt',
+    label: 'Alle',
+    color: '#172116',
+    words: allWords,
+  },
+  ...categoryPacks,
 ];
 
 type GamePhase = 'setup' | 'reveal' | 'vote' | 'voteResult' | 'gameOver';
@@ -97,6 +267,7 @@ type Round = {
   word: string;
   imposterIndex: number;
   packLabel: string;
+  speakingPlayerIndexes: number[];
   activePlayerIndexes: number[];
   eliminatedPlayerIndexes: number[];
   voteNumber: number;
@@ -112,25 +283,48 @@ function pickRandom<T>(items: T[]) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
+function shuffleItems<T>(items: T[]) {
+  const shuffledItems = [...items];
+
+  for (let index = shuffledItems.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffledItems[index], shuffledItems[randomIndex]] = [
+      shuffledItems[randomIndex],
+      shuffledItems[index],
+    ];
+  }
+
+  return shuffledItems;
+}
+
 function getCleanPlayers(players: string[]) {
   return players.map((name, index) => name.trim() || `Spiller ${index + 1}`);
+}
+
+function getPlayerColor(playerIndex: number) {
+  return PLAYER_COLORS[playerIndex % PLAYER_COLORS.length];
 }
 
 export default function HomeScreen() {
   const [playerCount, setPlayerCount] = useState(5);
   const [players, setPlayers] = useState(() => makeDefaultPlayers(5));
   const [selectedPackId, setSelectedPackId] = useState(wordPacks[0].id);
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const [phase, setPhase] = useState<GamePhase>('setup');
   const [round, setRound] = useState<Round | null>(null);
-  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
+  const [currentRevealPosition, setCurrentRevealPosition] = useState(0);
   const [cardVisible, setCardVisible] = useState(false);
   const [selectedVoteIndex, setSelectedVoteIndex] = useState<number | null>(null);
 
   const selectedPack = wordPacks.find((pack) => pack.id === selectedPackId) ?? wordPacks[0];
+  const isUsingAllWords = selectedPackId === 'alt';
+  const isCategoryChoiceActive = isCategoryMenuOpen || !isUsingAllWords;
   const cleanPlayers = getCleanPlayers(players);
+  const currentPlayerIndex = currentRevealPosition;
   const currentPlayer = cleanPlayers[currentPlayerIndex];
   const isCurrentPlayerImposter = round?.imposterIndex === currentPlayerIndex;
   const activePlayerIndexes = round?.activePlayerIndexes ?? [];
+  const speakingPlayerIndexes = round?.speakingPlayerIndexes ?? [];
   const activeCivilianCount = activePlayerIndexes.filter(
     (playerIndex) => playerIndex !== round?.imposterIndex,
   ).length;
@@ -156,31 +350,48 @@ export default function HomeScreen() {
     );
   }
 
+  function selectAllWords() {
+    setSelectedPackId('alt');
+    setIsCategoryMenuOpen(false);
+  }
+
+  function openCategoryMenu() {
+    setIsCategoryMenuOpen((isOpen) => !isOpen);
+  }
+
+  function selectCategory(packId: string) {
+    setSelectedPackId(packId);
+    setIsCategoryMenuOpen(true);
+  }
+
   function startRound() {
+    const playerIndexes = Array.from({ length: playerCount }, (_, index) => index);
+
     setRound({
       word: pickRandom(selectedPack.words),
       imposterIndex: Math.floor(Math.random() * playerCount),
       packLabel: selectedPack.label,
-      activePlayerIndexes: Array.from({ length: playerCount }, (_, index) => index),
+      speakingPlayerIndexes: shuffleItems(playerIndexes),
+      activePlayerIndexes: playerIndexes,
       eliminatedPlayerIndexes: [],
       voteNumber: 1,
       lastVotedIndex: null,
       winner: null,
     });
-    setCurrentPlayerIndex(0);
+    setCurrentRevealPosition(0);
     setCardVisible(false);
     setSelectedVoteIndex(null);
     setPhase('reveal');
   }
 
   function nextReveal() {
-    if (currentPlayerIndex >= playerCount - 1) {
+    if (currentRevealPosition >= playerCount - 1) {
       setCardVisible(false);
       setPhase('vote');
       return;
     }
 
-    setCurrentPlayerIndex((index) => index + 1);
+    setCurrentRevealPosition((position) => position + 1);
     setCardVisible(false);
   }
 
@@ -215,6 +426,9 @@ export default function HomeScreen() {
     setRound({
       ...round,
       activePlayerIndexes: nextActivePlayerIndexes,
+      speakingPlayerIndexes: round.speakingPlayerIndexes.filter(
+        (playerIndex) => playerIndex !== selectedVoteIndex,
+      ),
       eliminatedPlayerIndexes: nextEliminatedPlayerIndexes,
       voteNumber: round.voteNumber + 1,
       lastVotedIndex: selectedVoteIndex,
@@ -231,7 +445,7 @@ export default function HomeScreen() {
 
   function resetSetup() {
     setCardVisible(false);
-    setCurrentPlayerIndex(0);
+    setCurrentRevealPosition(0);
     setSelectedVoteIndex(null);
     setRound(null);
     setPhase('setup');
@@ -310,33 +524,70 @@ export default function HomeScreen() {
                 </View>
 
                 <View style={styles.section}>
-                  <Text style={styles.sectionLabel}>Ordgruppe</Text>
-                  <View style={styles.packRow}>
-                    {wordPacks.map((pack) => {
-                      const selected = pack.id === selectedPackId;
-                      return (
-                        <Pressable
-                          key={pack.id}
-                          accessibilityRole="button"
-                          onPress={() => setSelectedPackId(pack.id)}
-                          style={({ pressed }) => [
-                            styles.packButton,
-                            selected && { backgroundColor: pack.color },
-                            pressed && styles.pressed,
-                          ]}>
-                          <Text style={[styles.packText, selected && styles.packTextSelected]}>
-                            {pack.label}
-                          </Text>
-                        </Pressable>
-                      );
-                    })}
+                  <Text style={styles.sectionLabel}>Ordvalg</Text>
+                  <View style={styles.choiceRow}>
+                    <Pressable
+                      accessibilityRole="button"
+                      onPress={selectAllWords}
+                      style={({ pressed }) => [
+                        styles.choiceButton,
+                        isUsingAllWords && styles.choiceButtonSelected,
+                        pressed && styles.pressed,
+                      ]}>
+                      <Text style={[styles.choiceText, isUsingAllWords && styles.choiceTextSelected]}>
+                        Alle
+                      </Text>
+                    </Pressable>
+                    <Pressable
+                      accessibilityRole="button"
+                      onPress={openCategoryMenu}
+                      style={({ pressed }) => [
+                        styles.choiceButton,
+                        isCategoryChoiceActive && styles.choiceButtonSelected,
+                        pressed && styles.pressed,
+                      ]}>
+                      <Text
+                        style={[
+                          styles.choiceText,
+                          isCategoryChoiceActive && styles.choiceTextSelected,
+                        ]}>
+                        Velg kategori
+                      </Text>
+                    </Pressable>
                   </View>
+
+                  {isCategoryChoiceActive && (
+                    <View style={styles.packRow}>
+                      {categoryPacks.map((pack) => {
+                        const selected = pack.id === selectedPackId;
+                        return (
+                          <Pressable
+                            key={pack.id}
+                            accessibilityRole="button"
+                            onPress={() => selectCategory(pack.id)}
+                            style={({ pressed }) => [
+                              styles.packButton,
+                              selected && { backgroundColor: pack.color },
+                              pressed && styles.pressed,
+                            ]}>
+                            <Text style={[styles.packText, selected && styles.packTextSelected]}>
+                              {pack.label}
+                            </Text>
+                          </Pressable>
+                        );
+                      })}
+                    </View>
+                  )}
                 </View>
 
                 <Pressable
                   accessibilityRole="button"
                   onPress={startRound}
-                  style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}>
+                  style={({ pressed }) => [
+                    styles.primaryButton,
+                    styles.startButton,
+                    pressed && styles.pressed,
+                  ]}>
                   <Text style={styles.primaryButtonText}>Start spill</Text>
                 </Pressable>
               </View>
@@ -346,7 +597,7 @@ export default function HomeScreen() {
               <View style={styles.panel}>
                 <View style={styles.roundTopper}>
                   <Text style={styles.overline}>
-                    {currentPlayerIndex + 1} av {playerCount}
+                    {currentRevealPosition + 1} av {playerCount}
                   </Text>
                   <Text style={styles.roundTitle}>Send til {currentPlayer}</Text>
                   <Text style={styles.subtitle}>Hold skjermen skjult til det er din tur.</Text>
@@ -394,7 +645,7 @@ export default function HomeScreen() {
                     pressed && cardVisible && styles.pressed,
                   ]}>
                   <Text style={styles.primaryButtonText}>
-                    {currentPlayerIndex === playerCount - 1 ? 'Start runde' : 'Skjul og send'}
+                    {currentRevealPosition === playerCount - 1 ? 'Start runde' : 'Skjul og send'}
                   </Text>
                 </Pressable>
               </View>
@@ -407,7 +658,7 @@ export default function HomeScreen() {
                 </View>
                 <Text style={styles.roundTitle}>Hvem virker mistenkelig?</Text>
                 <Text style={styles.subtitle}>
-                  Alle sier én ting som passer til ordet. Imposteren må blende inn. Stem ut én
+                  Følg rekkefølgen under. Alle sier én ting som passer til ordet, og stemmer ut én
                   spiller når runden er ferdig.
                 </Text>
 
@@ -423,7 +674,7 @@ export default function HomeScreen() {
                 </View>
 
                 <View style={styles.voteList}>
-                  {round.activePlayerIndexes.map((playerIndex) => {
+                  {speakingPlayerIndexes.map((playerIndex, orderIndex) => {
                     const selected = selectedVoteIndex === playerIndex;
                     return (
                       <Pressable
@@ -435,8 +686,13 @@ export default function HomeScreen() {
                           selected && styles.voteButtonSelected,
                           pressed && styles.pressed,
                         ]}>
-                        <Text style={[styles.playerNumber, selected && styles.playerNumberSelected]}>
-                          {playerIndex + 1}
+                        <Text
+                          style={[
+                            styles.playerNumber,
+                            { backgroundColor: getPlayerColor(playerIndex) },
+                            selected && styles.playerNumberSelected,
+                          ]}>
+                          {orderIndex + 1}
                         </Text>
                         <Text style={[styles.playerName, selected && styles.votePlayerNameSelected]}>
                           {cleanPlayers[playerIndex]}
@@ -473,7 +729,13 @@ export default function HomeScreen() {
                 <View style={styles.playerList}>
                   {round.activePlayerIndexes.map((playerIndex) => (
                     <View key={playerIndex} style={styles.playerPill}>
-                      <Text style={styles.playerNumber}>{playerIndex + 1}</Text>
+                      <Text
+                        style={[
+                          styles.playerNumber,
+                          { backgroundColor: getPlayerColor(playerIndex) },
+                        ]}>
+                        {playerIndex + 1}
+                      </Text>
                       <Text style={styles.playerName}>{cleanPlayers[playerIndex]}</Text>
                     </View>
                   ))}
@@ -680,6 +942,35 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
   },
+  choiceRow: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+  },
+  choiceButton: {
+    minHeight: 42,
+    borderRadius: 999,
+    backgroundColor: '#FFF9F0',
+    borderWidth: 1,
+    borderColor: '#D4C4B4',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+  },
+  choiceButtonSelected: {
+    backgroundColor: '#E4F0DB',
+    borderColor: '#7B9E67',
+  },
+  choiceText: {
+    color: '#62584C',
+    fontSize: 13,
+    fontWeight: '900',
+    textAlign: 'center',
+  },
+  choiceTextSelected: {
+    color: '#2F5D2F',
+  },
   packRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -708,6 +999,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#172116',
     paddingHorizontal: 18,
+  },
+  startButton: {
+    backgroundColor: '#2F9E44',
   },
   primaryButtonCompact: {
     minHeight: 58,
