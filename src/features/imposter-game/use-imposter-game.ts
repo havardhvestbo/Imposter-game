@@ -22,7 +22,6 @@ export function useImposterGame() {
   const [imposterCount, setImposterCount] = useState(1);
   const [spyCount, setSpyCount] = useState(0);
   const [selectedPackId, setSelectedPackId] = useState(wordPacks[0].id);
-  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const [phase, setPhase] = useState<GamePhase>('setup');
   const [round, setRound] = useState<Round | null>(null);
   const [currentRevealPosition, setCurrentRevealPosition] = useState(0);
@@ -33,8 +32,6 @@ export function useImposterGame() {
   const maxHiddenRoleCount = getMaxHiddenRoleCount(playerCount);
   const maxImposterCount = Math.max(MIN_IMPOSTERS, maxHiddenRoleCount - spyCount);
   const maxSpyCount = Math.max(0, maxHiddenRoleCount - imposterCount);
-  const isUsingAllWords = selectedPackId === 'alt';
-  const isCategoryChoiceActive = isCategoryMenuOpen || !isUsingAllWords;
   const cleanPlayers = getCleanPlayers(players);
   const currentPlayerIndex = currentRevealPosition;
   const currentPlayer = cleanPlayers[currentPlayerIndex];
@@ -77,18 +74,8 @@ export function useImposterGame() {
     );
   }
 
-  function selectAllWords() {
-    setSelectedPackId('alt');
-    setIsCategoryMenuOpen(false);
-  }
-
-  function selectCategory(packId: string) {
+  function selectWordPack(packId: string) {
     setSelectedPackId(packId);
-    setIsCategoryMenuOpen(true);
-  }
-
-  function toggleCategoryMenu() {
-    setIsCategoryMenuOpen((isOpen) => !isOpen);
   }
 
   function startRound() {
@@ -148,8 +135,6 @@ export function useImposterGame() {
     currentPlayerRole,
     currentRevealPosition,
     imposterCount,
-    isCategoryChoiceActive,
-    isUsingAllWords,
     lastVotedPlayer,
     lastVotedRole,
     maxHiddenRoleCount,
@@ -162,8 +147,7 @@ export function useImposterGame() {
     replayWithSamePlayers,
     resetSetup,
     round,
-    selectAllWords,
-    selectCategory,
+    selectWordPack,
     selectedPackId,
     selectedVoteIndex,
     setCardVisible,
@@ -171,7 +155,6 @@ export function useImposterGame() {
     spyCount,
     startRound,
     submitVote,
-    toggleCategoryMenu,
     updateImposterCount,
     updatePlayerCount,
     updatePlayerName,

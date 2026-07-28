@@ -20,7 +20,7 @@ import { MAX_PLAYERS, MIN_PLAYERS } from '@/features/imposter-game/constants';
 import { getRoleLabel } from '@/features/imposter-game/game';
 import { styles } from '@/features/imposter-game/styles';
 import { useImposterGame } from '@/features/imposter-game/use-imposter-game';
-import { categoryPacks } from '@/features/imposter-game/words';
+import { wordPacks } from '@/features/imposter-game/words';
 
 export default function HomeScreen() {
   const {
@@ -33,8 +33,6 @@ export default function HomeScreen() {
     currentPlayerRole,
     currentRevealPosition,
     imposterCount,
-    isCategoryChoiceActive,
-    isUsingAllWords,
     lastVotedPlayer,
     lastVotedRole,
     maxHiddenRoleCount,
@@ -47,8 +45,7 @@ export default function HomeScreen() {
     replayWithSamePlayers,
     resetSetup,
     round,
-    selectAllWords,
-    selectCategory,
+    selectWordPack,
     selectedPackId,
     selectedVoteIndex,
     setCardVisible,
@@ -56,7 +53,6 @@ export default function HomeScreen() {
     spyCount,
     startRound,
     submitVote,
-    toggleCategoryMenu,
     updateImposterCount,
     updatePlayerCount,
     updatePlayerName,
@@ -111,12 +107,8 @@ export default function HomeScreen() {
                 <PlayerNameFields onNameChange={updatePlayerName} players={players} />
 
                 <WordPackSelector
-                  categoryPacks={categoryPacks}
-                  isCategoryChoiceActive={isCategoryChoiceActive}
-                  isUsingAllWords={isUsingAllWords}
-                  onSelectAll={selectAllWords}
-                  onSelectCategory={selectCategory}
-                  onToggleCategoryMenu={toggleCategoryMenu}
+                  onSelectPack={selectWordPack}
+                  packs={wordPacks}
                   selectedPackId={selectedPackId}
                 />
 

@@ -190,35 +190,6 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
   },
-  choiceRow: {
-    flexDirection: 'row',
-    gap: 10,
-    alignItems: 'center',
-  },
-  choiceButton: {
-    minHeight: 42,
-    borderRadius: 999,
-    backgroundColor: '#FFF9F0',
-    borderWidth: 1,
-    borderColor: '#D4C4B4',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 9,
-  },
-  choiceButtonSelected: {
-    backgroundColor: '#E4F0DB',
-    borderColor: '#7B9E67',
-  },
-  choiceText: {
-    color: '#62584C',
-    fontSize: 13,
-    fontWeight: '900',
-    textAlign: 'center',
-  },
-  choiceTextSelected: {
-    color: '#2F5D2F',
-  },
   packRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -239,6 +210,10 @@ export const styles = StyleSheet.create({
   },
   packTextSelected: {
     color: '#FFFFFF',
+  },
+  ageBadge: {
+    fontSize: 11,
+    fontWeight: '900',
   },
   primaryButton: {
     minHeight: 58,
