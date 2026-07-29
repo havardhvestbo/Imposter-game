@@ -22,14 +22,15 @@ npx expo start --clear --lan
 ## Checks
 
 ```bash
+npm test
 npm run lint
 npx tsc --noEmit
-npx expo-doctor
+npx expo-doctor@latest
 ```
 
 ## Stack
 
-- Expo SDK 54
+- Expo SDK 57
 - React Native
 - Expo Router
 - TypeScript

@@ -1,4 +1,4 @@
-import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
+import { NativeTabs } from 'expo-router/unstable-native-tabs';
 
 export default function AppTabs() {
   return (
@@ -13,15 +13,15 @@ export default function AppTabs() {
       shadowColor="rgba(0, 0, 0, 0.18)"
       disableTransparentOnScrollEdge>
       <NativeTabs.Trigger name="index">
-        <Label>Spill</Label>
-        <Icon
+        <NativeTabs.Trigger.Label>Spill</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
           src={require('@/assets/images/tabIcons/home.png')}
         />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="explore">
-        <Label>Regler</Label>
-        <Icon
+        <NativeTabs.Trigger.Label>Regler</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
           src={require('@/assets/images/tabIcons/explore.png')}
         />
       </NativeTabs.Trigger>

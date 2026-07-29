@@ -135,6 +135,10 @@ export function getActiveHiddenPlayerNames(round: Round, players: string[]) {
 }
 
 export function applyVote(round: Round, selectedVoteIndex: number): Round {
+  if (!round.activePlayerIndexes.includes(selectedVoteIndex)) {
+    return round;
+  }
+
   const nextActivePlayerIndexes = round.activePlayerIndexes.filter(
     (playerIndex) => playerIndex !== selectedVoteIndex,
   );
@@ -155,8 +159,15 @@ export function applyVote(round: Round, selectedVoteIndex: number): Round {
       (playerIndex) => playerIndex !== selectedVoteIndex,
     ),
     eliminatedPlayerIndexes: nextEliminatedPlayerIndexes,
-    voteNumber: round.voteNumber + 1,
     lastVotedIndex: selectedVoteIndex,
     winner,
+  };
+}
+
+export function startNextVote(round: Round): Round {
+  return {
+    ...round,
+    voteNumber: round.voteNumber + 1,
+    lastVotedIndex: null,
   };
 }

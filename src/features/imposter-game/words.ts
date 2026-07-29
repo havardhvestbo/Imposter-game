@@ -597,6 +597,99 @@ export const RELATED_WORDS: Record<string, string> = {
   Skilsmisse: 'Botox',
 };
 
+const RELATED_WORD_GROUPS = [
+  ['Agent', 'Sherlock Holmes'],
+  ['Diamantkupp', 'James Bond'],
+  ['Ubåt', 'Helikopter'],
+  ['Zeppelin', 'Orientekspressen'],
+  ['Tidsmaskin', 'Astronomi'],
+  ['Labyrint', 'Escape room'],
+  ['Skattejakt', 'Pyramide'],
+  ['Auksjon', 'Børsen'],
+  ['Museum', 'Operaen'],
+  ['Sirkus', 'Basar'],
+  ['Ambassade', 'Slott'],
+  ['Penthouse', 'Cruiseskip'],
+  ['Øde øy', 'Fyrtårn'],
+  ['Vingård', 'Marked'],
+  ['Katedral', 'Templer'],
+  ['Safari', 'Cape Town'],
+  ['Karibien', 'Ibiza'],
+  ['Marrakech', 'Havana'],
+  ['Singapore', 'Seoul'],
+  ['Kyoto', 'Athen'],
+  ['Istanbul', 'Mexico City'],
+  ['Los Angeles', 'San Francisco'],
+  ['Lasagne', 'Focaccia'],
+  ['Macaron', 'Donut'],
+  ['Fondue', 'Risotto'],
+  ['Pho', 'Dim sum'],
+  ['Burrito', 'Nachos'],
+  ['Pesto', 'Avokado'],
+  ['Chili', 'Biff'],
+  ['Østers', 'Hummer'],
+  ['Milkshake', 'Mojito'],
+  ['Whisky', 'Martini'],
+  ['Podcast', 'YouTube'],
+  ['Influencer', 'Realityshow'],
+  ['Memes', 'TikTok'],
+  ['Oscar', 'Grammy'],
+  ['Super Bowl', 'Champions League'],
+  ['Formel 1', 'Wimbledon'],
+  ['Netflix', 'Dataspill'],
+  ['Tesla', 'Robot'],
+  ['Bitcoin', 'Kryptovaluta'],
+  ['Kunstig intelligens', 'Hacker'],
+  ['Virtual reality', 'Avatar'],
+  ['Superhelt', 'Indiana Jones'],
+  ['Vampyr', 'Zombie'],
+  ['Drage', 'Enhjørning'],
+  ['Heks', 'Trollmann'],
+  ['Batman', 'Joker'],
+  ['Dronning', 'Keiser'],
+  ['Pirat', 'Cowboy'],
+  ['Gladiator', 'Ninja'],
+  ['Solsikke', 'Lavendel', 'Orkidé'],
+  ['Bonsai', 'Kaktus'],
+  ['Bumerang', 'Surfebrett'],
+  ['Hengekøye', 'Badstue'],
+  ['Kajakk', 'Dykking'],
+  ['Snowboard', 'Maraton'],
+  ['Fallskjerm', 'Fjellklatring'],
+  ['Yoga', 'Spa'],
+  ['Meditasjon', 'Hypnose'],
+  ['Walk of shame', 'One night stand'],
+  ['Booty call', 'Sexting'],
+  ['Nakenbading', 'Bodyshot'],
+  ['Pole dance', 'Lap dance'],
+  ['Fetisj', 'G-punkt'],
+  ['Trekant', 'Swingers'],
+  ['Pornhub', 'Nakenkalender'],
+  ['Playboy', 'Hugh Hefner'],
+  ['BDSM', 'Safeword'],
+  ['Strippepoker', 'Twerking'],
+  ['Teknisk knockout', 'Bakrus'],
+  ['Fylleangst', 'Promille'],
+  ['Dirty talk', 'Privat melding'],
+  ['Catfish', 'Red flag'],
+  ['Trophy wife', 'Sugar baby'],
+  ['Cougar', 'Hemmelig affære'],
+  ['Nattens dronning', 'Afterdark'],
+  ['Skammekrok', 'Forbudt frukt'],
+  ['Pengevask', 'Hvitvasking', 'Offshore-konto'],
+  ['Korrupsjon', 'Bestikkelse'],
+  ['Kokain', 'Kartell'],
+  ['Realityskandale', 'Influencerdrama'],
+  ['Lekket video', 'Skandalepresse'],
+  ['Rødt lys', 'Champagnerom', 'Gentlemans club'],
+] as const;
+
+for (const relatedWords of RELATED_WORD_GROUPS) {
+  relatedWords.forEach((word, index) => {
+    RELATED_WORDS[word] = relatedWords[(index + 1) % relatedWords.length];
+  });
+}
+
 export const allWords = Array.from(new Set(categoryPacks.flatMap((pack) => pack.words)));
 
 export const wordPacks: WordPack[] = [
@@ -609,19 +702,6 @@ export const wordPacks: WordPack[] = [
   ...categoryPacks,
 ];
 
-function pickFallbackWord(words: string[]) {
-  return words[Math.floor(Math.random() * words.length)];
-}
-
 export function getRelatedWord(word: string) {
-  const relatedWord = RELATED_WORDS[word];
-
-  if (relatedWord) {
-    return relatedWord;
-  }
-
-  const sourcePack = categoryPacks.find((pack) => pack.words.includes(word));
-  const alternatives = (sourcePack?.words ?? allWords).filter((alternative) => alternative !== word);
-
-  return alternatives.length > 0 ? pickFallbackWord(alternatives) : word;
+  return RELATED_WORDS[word] ?? word;
 }

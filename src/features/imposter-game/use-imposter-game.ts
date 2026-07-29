@@ -12,6 +12,7 @@ import {
   getMaxHiddenRoleCount,
   getPlayerRole,
   makeDefaultPlayers,
+  startNextVote,
 } from './game';
 import type { GamePhase, Round } from './types';
 import { wordPacks } from './words';
@@ -114,6 +115,7 @@ export function useImposterGame() {
 
   function continueVoting() {
     setSelectedVoteIndex(null);
+    setRound((currentRound) => (currentRound ? startNextVote(currentRound) : currentRound));
     setPhase('vote');
   }
 
